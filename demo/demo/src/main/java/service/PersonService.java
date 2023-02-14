@@ -17,7 +17,7 @@ public class PersonService {
         personDao = personDao1;
     }
 
-    public int insertPerson(Person person){
+    public int addPerson(Person person){
         return personDao.insertPerson(person);
     }
 

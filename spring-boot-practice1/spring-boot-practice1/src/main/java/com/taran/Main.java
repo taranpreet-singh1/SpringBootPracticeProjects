@@ -2,19 +2,47 @@ package com.taran;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @SpringBootApplication
-@RestController //Means any method within this class that has any annotation like get put etc will be exposed as Rest endpoints
+@RestController//Means any method within this class that has any annotation like get put etc will be exposed as Rest endpoints
+@RequestMapping("api/v1/customers")
 public class Main {
     public static void main(String[] args){
 
         SpringApplication.run(Main.class, args);
     }
+
+    @GetMapping
+    public List<Customer> getCustomers(){
+        return List.of();
+    }
+
+    record NewCustomerRequest(
+            String name,
+            String email,
+            Integer age
+    ){
+
+    }
+
+
+    @PostMapping
+    public void addCustomer(@RequestBody NewCustomerRequest request){
+        Customer customer = new Customer();
+        customer.setName(request.name);
+        customer.setEmail(request.email);
+        customer.setAge(request.age);
+        CustomerRepository.save(customer);
+    }
+
+    public void deleteCustomer(@PathVariable("customerId") Integer id){
+        CustomerRepository.deleteById(id);
+    }
+
 
     @GetMapping("/")
     public GreetResponse greet(){

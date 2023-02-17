@@ -2,9 +2,9 @@ package com.taranspring.springbootpractice2.game;
 
 public class GameRunner {
 
-    MarioGame game;
+    private GamingConsole game;
 
-    public GameRunner(MarioGame game){
+    public GameRunner(GamingConsole game){
         this.game = game;
     }
 

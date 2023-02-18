@@ -1,5 +1,10 @@
 package com.taranspring.springbootpractice2.game;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+@Qualifier("Pacman")
 public class PacmanGame implements GamingConsole{
 
     public void up(){

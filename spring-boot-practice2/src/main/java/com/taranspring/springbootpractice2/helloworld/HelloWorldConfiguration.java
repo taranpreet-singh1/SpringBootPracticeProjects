@@ -1,4 +1,4 @@
-package com.taranspring.springbootpractice2;
+package com.taranspring.springbootpractice2.helloworld;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

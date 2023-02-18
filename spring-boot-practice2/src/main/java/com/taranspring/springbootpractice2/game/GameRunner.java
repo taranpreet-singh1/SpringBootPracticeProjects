@@ -1,5 +1,8 @@
 package com.taranspring.springbootpractice2.game;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class GameRunner {
 
     private GamingConsole game;

@@ -29,7 +29,7 @@ public class GamingAppLauncherApplication {
 
             context.getBean(GameRunner.class).run();
 
-            context.getBean(GamingConsole.class).up();
+          //  context.getBean(GamingConsole.class).up();
 
         }
 

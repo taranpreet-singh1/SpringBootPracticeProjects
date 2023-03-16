@@ -1,5 +1,7 @@
 package com.springboot.FirstSpringWebApp.todo;
 
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class Todo {
@@ -15,6 +17,8 @@ public class Todo {
     }
 
     private String username;
+
+    @Size(min=10, message="Enter atleast 10 Characters")
     private String description;
     private LocalDate targetDate;
     private boolean done;

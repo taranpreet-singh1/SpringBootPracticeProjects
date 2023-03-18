@@ -1,9 +1,8 @@
-<html>
-    <head>
-        <title>Welcome page</title>
-    </head>
-    <body>
+ <%@ include file="common/header.jspf" %>
+    <%@ include file="common/navigation.jspf" %>
+
+
       Welcome to welcome page!  ${name}
       <div><a href="list-todo">Access Todos</a></div>
-    </body>
-</html>
+
+<%@ include file="common/footer.jspf" %>

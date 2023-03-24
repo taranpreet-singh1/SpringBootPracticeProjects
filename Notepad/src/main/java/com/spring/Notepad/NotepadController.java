@@ -19,7 +19,10 @@ public class NotepadController {
         return "addNote";
     }
 
-
+    @RequestMapping("list-notes")
+    public String listAllTodos(){
+        return "listNotes";
+    }
 
 //    private String getLoggedinUsername(){
 //

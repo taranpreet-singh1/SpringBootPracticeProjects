@@ -1,9 +1,14 @@
 package com.spring.ExpenseTracker;
 
+
+import jakarta.validation.constraints.Size;
+
 public class Expense {
 
     private int id;
     private String username;
+
+    @Size(min=10, message="Enter atleast 10 characters")
     private String description;
     private int amount;
 

@@ -56,5 +56,27 @@ public class ExpenseController {
     }
 
 
+    @RequestMapping(value="update-expense", method = RequestMethod.GET)
+    public String showUpdatePage(@RequestParam int id, ModelMap model){
+        Expense expense = expenseService.findById(id);
+        model.addAttribute("expense",expense);
+        return "addExpense";
+    }
+
+    @RequestMapping(value="update-expense", method = RequestMethod.POST)
+    public String updateExpense(ModelMap model, @Valid Expense expense, BindingResult result){
+
+        if(result.hasErrors()){
+            return "addExpense";
+        }
+
+        String username = (String)model.get("name");
+        expense.setUsername(username);
+        expenseService.updateExpense(expense);
+        return "redirect:list-expenses";
+    }
+
+
+
 
 }

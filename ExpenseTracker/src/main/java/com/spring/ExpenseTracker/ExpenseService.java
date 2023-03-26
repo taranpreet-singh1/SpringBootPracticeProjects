@@ -1,5 +1,6 @@
 package com.spring.ExpenseTracker;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +34,17 @@ public class ExpenseService {
     public void deleteById(int id){
         Predicate<? super Expense> predicate = expense -> expense.getId() == id;
         expenses.removeIf(predicate);
+    }
+
+    public Expense findById(int id){
+        Predicate<? super Expense> predicate = expense -> expense.getId() == id;
+        Expense expense =  expenses.stream().filter(predicate).findFirst().get();
+        return expense;
+    }
+
+    public void updateExpense(@Valid Expense expense){
+        deleteById(expense.getId());
+        expenses.add(expense);
     }
 
 }

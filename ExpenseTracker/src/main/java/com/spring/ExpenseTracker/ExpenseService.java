@@ -22,7 +22,8 @@ public class ExpenseService {
 
 
     public List<Expense> findByUsername(String username){
-        return expenses;
+        Predicate<? super Expense> predicate = expense -> expense.getUsername().equalsIgnoreCase(username);
+        return expenses.stream().filter(predicate).toList();
     }
 
 

@@ -1,17 +1,18 @@
 package com.spring.ExpenseTracker;
 
 import jakarta.validation.Valid;
+import org.apache.coyote.Request;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@SessionAttributes("name")
 public class ExpenseController {
 
     public ExpenseController(ExpenseService expenseService) {
@@ -20,9 +21,23 @@ public class ExpenseController {
 
     private ExpenseService expenseService;
 
+
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public String home(ModelMap model){
+        model.put("name",getLoggedinUsername());
+        return "redirect:list-expenses";
+    }
+
+    private String getLoggedinUsername(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
+
     @RequestMapping("list-expenses")
     public String listAllExpenses(ModelMap model){
-        List<Expense> expenses =  expenseService.findByUsername("singht");
+        String username = (String)model.get("name");
+        List<Expense> expenses =  expenseService.findByUsername(username);
         model.addAttribute("expenses",expenses);
         return "listExpenses";
     }

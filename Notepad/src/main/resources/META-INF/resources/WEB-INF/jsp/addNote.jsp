@@ -12,7 +12,7 @@
 
         <fieldset class="mb-3">
             <form:label path = "description">Note Description:</form:label>
-            <form:input type="text" class="form-control" path="description" required="required"/>
+            <form:textarea class="form-control" path="description" required="required"/>
             <form:errors path="description" cssClass="text-warning" />
         </fieldset>
 

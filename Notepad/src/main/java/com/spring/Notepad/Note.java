@@ -1,11 +1,15 @@
 package com.spring.Notepad;
 
 
+import jakarta.validation.constraints.Size;
+
 public class Note {
 
 private int id;
 private String username;
 private String heading;
+
+@Size(min=10, message="Enter atleast 10 characters")
 private String description;
 
     public Note(int id, String username, String heading, String description) {

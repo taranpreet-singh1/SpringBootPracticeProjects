@@ -2,6 +2,8 @@ package com.spring.Notepad;
 
 
 import org.apache.coyote.Request;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.ModelMap;
@@ -22,11 +24,20 @@ public class NotepadController {
         this.noteService = noteService;
     }
 
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public String home(ModelMap model){
+        model.put("name",getLoggedinUsername());
+        return "redirect:welcome";
+    }
 
+    private String getLoggedinUsername(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
 
     @RequestMapping("welcome")
     public String goToWelcomePage(ModelMap model){
-        List<Note> notes = noteService.findByUsername("singht");
+        List<Note> notes = noteService.findByUsername(getLoggedinUsername());
         model.addAttribute("notes",notes);
         //model.put("name",getLoggedinUsername());
         return "welcome";

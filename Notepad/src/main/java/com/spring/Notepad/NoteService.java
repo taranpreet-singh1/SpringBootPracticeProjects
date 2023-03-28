@@ -20,7 +20,9 @@ public class NoteService {
     }
 
     public List<Note> findByUsername(String username){
-        return notes;
+
+        Predicate<? super Note> predicate = note -> note.getUsername().equalsIgnoreCase(username);
+        return notes.stream().filter(predicate).toList();
     }
 
     public void addNote(String username, String heading, String description){

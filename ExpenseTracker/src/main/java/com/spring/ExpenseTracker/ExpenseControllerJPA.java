@@ -1,26 +1,29 @@
 package com.spring.ExpenseTracker;
 
 import jakarta.validation.Valid;
-import org.apache.coyote.Request;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
-//@Controller
+@Controller
 @SessionAttributes("name")
-public class ExpenseController {
+public class ExpenseControllerJPA {
 
-    public ExpenseController(ExpenseService expenseService) {
-        this.expenseService = expenseService;
+    public ExpenseControllerJPA(ExpenseRepository expenseRepository) {
+
+        this.expenseRepository = expenseRepository;
     }
 
-    private ExpenseService expenseService;
 
+    private ExpenseRepository expenseRepository;
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String home(ModelMap model){
@@ -37,7 +40,8 @@ public class ExpenseController {
     @RequestMapping("list-expenses")
     public String listAllExpenses(ModelMap model){
         String username = (String)model.get("name");
-        List<Expense> expenses =  expenseService.findByUsername(username);
+
+        List<Expense> expenses =  expenseRepository.findByUsername(username);
         model.addAttribute("expenses",expenses);
         return "listExpenses";
     }
@@ -60,20 +64,22 @@ public class ExpenseController {
         }
 
         String username = (String)model.get("name");
-        expenseService.addExpense(username,expense.getDescription(),100);
+        expense.setUsername(username);
+        expenseRepository.save(expense);
+      //  expenseService.addExpense(username,expense.getDescription(),100);
         return "redirect:list-expenses";
     }
 
     @RequestMapping("delete-expense")
     public String deleteExpense(@RequestParam int id){
-        expenseService.deleteById(id);
+        expenseRepository.deleteById(id);
         return "redirect:list-expenses";
     }
 
 
     @RequestMapping(value="update-expense", method = RequestMethod.GET)
     public String showUpdatePage(@RequestParam int id, ModelMap model){
-        Expense expense = expenseService.findById(id);
+        Expense expense = expenseRepository.findById(id).get();
         model.addAttribute("expense",expense);
         return "addExpense";
     }
@@ -87,7 +93,7 @@ public class ExpenseController {
 
         String username = (String)model.get("name");
         expense.setUsername(username);
-        expenseService.updateExpense(expense);
+        expenseRepository.save(expense);
         return "redirect:list-expenses";
     }
 

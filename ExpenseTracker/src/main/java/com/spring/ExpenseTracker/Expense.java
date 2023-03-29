@@ -1,10 +1,20 @@
 package com.spring.ExpenseTracker;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
+@Entity
 public class Expense {
 
+    public Expense(){
+
+    }
+
+    @Id
+    @GeneratedValue
     private int id;
     private String username;
 

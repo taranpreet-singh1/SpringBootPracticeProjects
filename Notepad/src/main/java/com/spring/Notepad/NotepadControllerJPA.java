@@ -1,27 +1,28 @@
 package com.spring.Notepad;
 
 
-import org.apache.coyote.Request;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.ModelMap;
-import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
-//@Controller
-public class NotepadController {
+@Controller
+@SessionAttributes("name")
+public class NotepadControllerJPA {
 
-    private NoteService noteService;
 
-    public NotepadController(NoteService noteService) {
-        this.noteService = noteService;
+    private NoteRepository noteRepository;
+
+    public NotepadControllerJPA(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
     }
 
     @RequestMapping(value="/", method = RequestMethod.GET)
@@ -37,7 +38,8 @@ public class NotepadController {
 
     @RequestMapping("welcome")
     public String goToWelcomePage(ModelMap model){
-        List<Note> notes = noteService.findByUsername(getLoggedinUsername());
+        String username = (String)model.get("name");
+        List<Note> notes = noteRepository.findByUsername(username);
         model.addAttribute("notes",notes);
         //model.put("name",getLoggedinUsername());
         return "welcome";
@@ -59,24 +61,26 @@ public class NotepadController {
         }
 
         String username = (String)model.get("name");
-        noteService.addNote(username,note.getHeading(), note.getDescription());
+        note.setUsername(username);
+       // noteService.addNote(username,note.getHeading(), note.getDescription());
+        noteRepository.save(note);
         return "redirect:welcome";
     }
 
     @RequestMapping("list-notes")
     public String listAllTodos(){
-        return "welcome";
+        return "redirect:welcome";
     }
 
     @RequestMapping("delete-note")
     public String deleteNote(@RequestParam int id){
-        noteService.deleteById(id);
+        noteRepository.deleteById(id);
         return "redirect:welcome";
     }
 
     @RequestMapping(value="update-note", method = RequestMethod.GET)
     public String showUpdatePage(@RequestParam int id, ModelMap model){
-        Note note = noteService.findById(id);
+        Note note = noteRepository.findById(id).get();
         model.addAttribute("note",note);
         return "addNote";
     }
@@ -90,7 +94,7 @@ public class NotepadController {
 
         String username = (String)model.get("name");
         note.setUsername(username);
-        noteService.updateNote(note);
+        noteRepository.save(note);
         return "redirect:welcome";
 
     }

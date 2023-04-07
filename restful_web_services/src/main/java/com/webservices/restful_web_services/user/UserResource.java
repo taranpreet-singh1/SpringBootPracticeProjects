@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 //Rest Api
-@RestController
+//@RestController
 public class UserResource {
 
     private UserDaoService service;

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.postgresql:pgadba:runtime">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/postgresql/pgadba/runtime/pgadba-runtime.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/postgresql/pgadba/runtime/pgadba-runtime-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/postgresql/pgadba/runtime/pgadba-runtime-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

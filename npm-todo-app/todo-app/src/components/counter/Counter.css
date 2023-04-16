@@ -14,7 +14,25 @@
 }
 
 .count{
-    font-size: 150px;
+    font-size: 50px;
     padding: 20px;
 
+}
+
+.totalCount{
+    color:#00a5ab;
+    font-size: 150px;
+}
+
+
+.resetButton{
+    background-color: #0097ab;
+    font-size:20px;
+    width:200px;
+    margin:10px;
+    color: white;
+    padding: 15px;
+    border-radius: 25px;
+    border-color: black;
+    border-width: 5px;
 }

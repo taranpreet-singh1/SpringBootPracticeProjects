@@ -2,12 +2,14 @@
 import './App.css';
 import CounterButton from './components/counter/CounterButton';
 import Counter from './components/counter/CounterButton'
+import TodoApp from './components/todo/TodoApp'
 
 
 function App() {
   return (
     <div className="App">
-      <Counter />
+      {/* <Counter /> */}
+      <TodoApp />
     </div>
   );
 }
